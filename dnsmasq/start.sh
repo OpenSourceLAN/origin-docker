@@ -6,7 +6,7 @@ get_ip() {
 
 }
 
-[[ -z $HOST_IP ]] && (export HOST_IP=$(get_ip) &&  echo "\$HOST_IP not set - using $HOST_IP")
+[[ -z $HOST_IP ]] && export HOST_IP=$(get_ip) &&  echo "\$HOST_IP not set - using $HOST_IP"
 [[ -n $HOST_IP ]] || (echo "\$HOST_IP not set and couldn't detect it. Bailing hard." && exit 1)
 
 docker rm -f cache_dnsmasq
