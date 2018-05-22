@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p /data/data /data/logs
+mkdir -p /mnt/user/data/data /mnt/user/data/logs
 docker rm -f cache
 
-docker run --name cache -d --restart=always -p 80:80 -v /data/data:/cache -v /data/logs:/var/log/nginx cache
+docker run --name cache -d --restart=always -p 80:80 -v /mnt/user/data/data:/cache -v /mnt/user/data/logs:/var/log/nginx cache
