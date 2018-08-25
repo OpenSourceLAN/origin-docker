@@ -1,29 +1,56 @@
-FROM ubuntu:latest
+FROM ubuntu:bionic
 
-RUN apt-get update && apt-get install -y build-essential libssl-dev libpcre3 libpcre3-dev zlib1g zlib1g-dev
-RUN apt-get install -y wget
+# shared layers with second stage image, faster build by caching layers!
+RUN apt-get update
+RUN apt-get install -y libssl1.0.0 libpcre3 zlib1g
+
+RUN apt-get update && \
+	apt-get install -y \
+		build-essential \
+		libssl-dev \
+		libpcre3-dev \
+		zlib1g-dev \
+		wget \
+		unzip
 
 RUN mkdir /build
 WORKDIR /build
 ADD build.sh /build/build.sh
 RUN /build/build.sh
 
-RUN rm -rf /etc/nginx/conf.d/* /etc/nginx/sites-enabled/*
-ADD origin.conf /etc/nginx/conf.d/
-ADD steam.conf /etc/nginx/conf.d/
-ADD blizzard.conf /etc/nginx/conf.d/
-ADD league.conf /etc/nginx/conf.d/
-ADD wargaming.conf /etc/nginx/conf.d/
-ADD sony.conf /etc/nginx/conf.d/
-ADD microsoft.conf /etc/nginx/conf.d/
-ADD hirez.conf /etc/nginx/conf.d/
-ADD epic.conf /etc/nginx/conf.d/
+FROM ubuntu:bionic
+RUN apt-get update
+RUN apt-get install -y libssl1.0.0 libpcre3 zlib1g
 
-RUN mkdir -p /var/lib/nginx/body 
-RUN mkdir -p /var/lib/nginx/fastcgi 
-RUN mkdir -p /cache/origin /cache/steam /cache/blizzard /cache/league /cache/wargaming /cache/sony /cache/microsoft /cache/hirez /cache/epic
+COPY --from=0 /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=0 /etc/nginx/mime.types /etc/nginx/mime.types
+
+RUN mkdir -p \
+	/etc/nginx/conf.d \
+	/var/lib/nginx/body \
+	/var/lib/nginx/fastcgi \
+	/cache/cache_data \
+	/cache/static \
+	/var/log/nginx
+
+
+ADD \
+	origin.conf \
+	steam.conf \
+	blizzard.conf \
+	league.conf \
+	wargaming.conf \
+	sony.conf \
+	microsoft.conf \
+	hirez.conf \
+	epic.conf \
+	catch_all.conf \
+	static.conf \
+	/etc/nginx/conf.d/
+
 
 ADD nginx.conf /etc/nginx/nginx.conf
+ADD ca/client.key ca/client.pem /etc/nginx/
 
 CMD nginx -g "daemon off;" -c /etc/nginx/nginx.conf
-
+VOLUME ["/cache", "/var/log/nginx"]
