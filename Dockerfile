@@ -43,14 +43,19 @@ ADD \
 	sony.conf \
 	microsoft.conf \
 	hirez.conf \
-	epic.conf \
 	catch_all.conf \
 	static.conf \
 	/etc/nginx/conf.d/
 
-
 ADD nginx.conf /etc/nginx/nginx.conf
-ADD ca/client.key ca/client.pem /etc/nginx/
+
+# Epic requires custom TLS certificates and for your connecting PCs
+# to have trusted your custom CA. Only enable this if you know what
+# you're doing :)
+# ADD epic.conf
+# Ideally, do not put these keys in your image. Instead, mount them
+# a volume.
+# ADD ca/client.key ca/client.pem /etc/nginx/
 
 CMD nginx -g "daemon off;" -c /etc/nginx/nginx.conf
 VOLUME ["/cache", "/var/log/nginx"]
