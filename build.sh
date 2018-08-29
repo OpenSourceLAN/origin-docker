@@ -1,9 +1,12 @@
 #!/bin/bash
 
-
-wget http://nginx.org/download/nginx-1.9.12.tar.gz
+wget https://github.com/chobits/ngx_http_proxy_connect_module/archive/master.zip
+unzip master.zip
+wget http://nginx.org/download/nginx-1.15.2.tar.gz
 tar -xf nginx*
 cd nginx*
+
+patch -p1 < ../ngx_http_proxy_connect_module-master/patch/proxy_connect_rewrite_1015.patch
 
 # Configure options taken from the current Ubuntu 12.04 `nginx-light` rules
 # with the addition of the slice module, and the removal of a no-longer-valid one
@@ -31,7 +34,8 @@ cd nginx*
             --without-http_ssi_module \
             --without-http_userid_module \
             --without-http_uwsgi_module \
-            --with-http_slice_module
+            --with-http_slice_module \
+            --add-module=/build/ngx_http_proxy_connect_module-master
 
 
 make -j 8 
