@@ -1,8 +1,7 @@
 FROM ubuntu:bionic
 
 # shared layers with second stage image, faster build by caching layers!
-RUN apt-get update
-RUN apt-get install -y libssl1.0.0 libpcre3 zlib1g
+RUN apt-get update && apt-get install -y libssl1.0.0 libpcre3 zlib1g && apt-get purge
 
 RUN apt-get update && \
 	apt-get install -y \
@@ -11,7 +10,7 @@ RUN apt-get update && \
 		libpcre3-dev \
 		zlib1g-dev \
 		wget \
-		unzip
+		unzip && apt-get purge
 
 RUN mkdir /build
 WORKDIR /build
@@ -19,8 +18,7 @@ ADD build.sh /build/build.sh
 RUN /build/build.sh
 
 FROM ubuntu:bionic
-RUN apt-get update
-RUN apt-get install -y libssl1.0.0 libpcre3 zlib1g
+RUN apt-get update && apt-get install -y libssl1.0.0 libssl1.1 libpcre3 zlib1g && apt-get purge
 
 COPY --from=0 /usr/sbin/nginx /usr/sbin/nginx
 COPY --from=0 /etc/nginx/mime.types /etc/nginx/mime.types

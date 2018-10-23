@@ -4,7 +4,7 @@ wget https://github.com/chobits/ngx_http_proxy_connect_module/archive/master.zip
 unzip master.zip
 wget http://nginx.org/download/nginx-1.15.2.tar.gz
 tar -xf nginx*
-cd nginx*
+cd nginx-1.15.2
 
 patch -p1 < ../ngx_http_proxy_connect_module-master/patch/proxy_connect_rewrite_1015.patch
 
