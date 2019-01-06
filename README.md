@@ -5,67 +5,8 @@ and you get a fully operational LAN cache. Hooray!
 
 ## Game Download Service URL Reference List
 
-```
-Steam:
-content[0-9].steampowered.com
-*.cs.steampowered.com
-*.steamcontent.com
-client-download.steampowered.com
-*.hsar.steampowered.com.edgesuite.net
-*.akamai.steamstatic.com
-content-origin.steampowered.com
-
-Blizzard:
-dist.blizzard.com.edgesuite.net
-llnw.blizzard.com
-dist.blizzard.com
-blizzard.vo.llnwd.net
-blzddist*.akamaihd.net
-level3.blizzard.com
-
-League of Legends:
-l3cdn.riotgames.com
-
-Origin:
-origin-a.akamaihd.net
-
-Wargaming.net:
-dl.wargaming.net
-dl2.wargaming.net
-wg.gcdn.co
-
-### WARNING ###
-Some of the folowing ones may require SSL certificate spoofing to work, and come
-untested. Please test the following in your environment before relying on them. 
-
-Sony (PS4):
-*.dl.playstation.net 
-*.dl.playstation.net.edgesuite.net 
-dl.playstation.net 
-dl.playstation.net.edgesuite.net 
-pls.patch.station.sony.com;
-
-Microsoft:
-*.download.windowsupdate.com 
-download.windowsupdate.com 
-dlassets.xboxlive.com 
-*.xboxone.loris.llnwd.net 
-xboxone.vo.llnwd.net 
-images-eds.xboxlive.com 
-xbox-mbr.xboxlive.com 
-assets1.xboxlive.com.nsatc.net 
-assets1.xboxlive.com
-
-Hirez:
-hirez.http.internapcdn.net
-
-Epic Games: (not tested, needs custom SSC)
-download.epicgames.com 
-download1.epicgames.com 
-download2.epicgames.com 
-download3.epicgames.com 
-download4.epicgames.com 
-```
+For a list of DNS addresses to override on your DNS server, refer to [uklans/cache-domains](https://github.com/uklans/cache-domains/),
+or the individual nginx configuration files in this repo.
 
 ## Quickstart
 
@@ -95,7 +36,7 @@ docker run --name sniproxy -p 443:443 sniproxy
 
 ### Start with a clean install of Linux
 
-### Ensure `/data` is on a volume with plenty of disk space.
+### Ensure `/data` is on a volume (or symlink) with plenty of disk space.
 
 Example:
  - consider you have a mega-partition mounted to /mnt/storage
@@ -146,3 +87,4 @@ Notes:
 
 ## Credits
 In addition to OpenSourceLAN members, this project contains [contributions](https://github.com/OpenSourceLAN/origin-docker/pull/1) from @ChainedHope
+

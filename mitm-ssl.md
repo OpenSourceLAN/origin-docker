@@ -23,5 +23,4 @@ openssl pkcs12 -export -in rootca.pem -out rootca.p12 -nokeys
 
 ```
 
-You should then build your own image with the relevant nginx config files added
-to `/etc/nginx/conf.d/`, and the SSL certs mounted as a volume.
+You should then mount a folder containing the files `client.pem` and `client.key` inside the container to `/etc/nginx/ssl/epic/`
