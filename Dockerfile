@@ -43,6 +43,7 @@ ADD \
 	hirez.conf \
 	catch_all.conf \
 	static.conf \
+        uplay.conf \
 	/etc/nginx/conf.d/
 
 ADD nginx.conf /etc/nginx/nginx.conf
