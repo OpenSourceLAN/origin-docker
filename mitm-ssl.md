@@ -1,6 +1,9 @@
 # Generating a self signed CA for MITM caching
 
-EG, for use with Epic Games if you own all of the PCs
+**Hint!** There's a script in this folder called `generate-tls-certificate-authority.sh`
+which will make these files for you. :)
+
+EG, for use with Epic Games if you own all of the PCs and you can install a Certificate Authority (CA) on it.
 
 ```
 # Generate your CA key and then certificate
