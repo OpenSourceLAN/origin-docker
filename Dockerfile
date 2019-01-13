@@ -59,6 +59,7 @@ ADD \
 	static.conf \
         uplay.conf \
         epic.conf \
+        oculus.conf \
 	/etc/nginx/conf.d/
 
 ADD nginx.conf /etc/nginx/nginx.conf
