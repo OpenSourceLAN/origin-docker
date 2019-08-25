@@ -1,0 +1,19 @@
+version: "3"
+services:
+  cache:
+    build: .
+    ports:
+      - "80:80"
+      - "8443:8443"
+    volumes:
+      - /data/cache:/cache
+      - /data/logs:/var/log/nginx
+    restart: unless-stopped
+    network_mode: "host"
+
+  sniproxy:
+    build: ./sniproxy
+    ports:
+      - "443:443"
+    restart: unless-stopped
+    network_mode: "host"
